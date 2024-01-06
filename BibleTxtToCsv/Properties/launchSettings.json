@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BibleTxtToCsv": {
+      "commandName": "Project",
+      "commandLineArgs": "James.txt"
+    }
+  }
+}
