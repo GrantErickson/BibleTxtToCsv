@@ -3,14 +3,23 @@ This helped a friend import Bible chapters from a text file and output a csv. Th
 
 ## Import format 
 [Book] [Chapter]
+
 [Verse Number] [Verse Text]
+
 [Verse Number] [Verse Text]
+
 [Verse Number] [Verse Text]
+
 [Verse Number] [Verse Text]
+
 [Book] [Chapter]
+
 [Verse Number] [Verse Text]
+
 [Verse Number] [Verse Text]
+
 [Verse Number] [Verse Text]
+
 [Verse Number] [Verse Text]
 
 ## Output Format
