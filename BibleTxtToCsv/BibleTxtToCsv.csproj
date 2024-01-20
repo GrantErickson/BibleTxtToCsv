@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BibleTxtToCsv.Lib\BibleTxtToCsv.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="James.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

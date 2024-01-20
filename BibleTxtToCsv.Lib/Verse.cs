@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BibleTxtToCsv
+namespace BibleTxtToCsv.Lib
 {
-    internal class Verse
+    public class Verse
     {
         public Verse(string book, int chapter, int verseNumber, string text)
         {

@@ -10,7 +10,7 @@
 
 // Text can be easily taken from here: https://www.biblestudytools.com/james/1.html
 
-using BibleTxtToCsv;
+using BibleTxtToCsv.Lib;
 using System;
 using System.Collections.Generic;
 using System.IO;

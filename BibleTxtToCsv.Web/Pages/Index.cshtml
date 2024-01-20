@@ -1,0 +1,45 @@
+﻿@page
+@model ConvertModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style>
+    p {
+        margin-bottom: 0px;
+    }
+    h4{
+        margin-top:1rem;
+        margin-bottom: 0px;
+    }
+    textarea.form-control{
+        border-color:black;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the Bible CSV Formatter</h1>
+    <p>Paste your text into the box box and click the button to convert it to CSV</p>
+    <p>Text can be easily taken from here: 
+        <a target="_blank" href="https://www.biblestudytools.com/james/1.html">https://www.biblestudytools.com/james/1.html</a>
+    </p>
+    <hr />
+    <h4>The format is</h4>
+    <p>[Book] [Chapter Number]</p>
+    <p>[Verse] [Verse Text]</p>
+    <p>[Verse] [Verse Text]</p>
+
+    <h4>Example:</h4>
+    <p>James 1</p>
+    <p>1 James, a servant of God and of the Lord Jesus Christ, To the twelve tribes scattered among the nations: Greetings.</p>
+    <p>2 Consider it pure joy, my brothers and sisters, whenever you face trials of many kinds,</p>
+    <form method="post">
+        <textarea asp-for="Text" class="form-control" rows="10"></textarea>
+        <input type="submit" value="Format as CSV" class="btn btn-primary" style="margin-top:5px; margin-bottom: 5px;"/>
+    </form>
+    <textarea asp-for="Csv" class="form-control" rows="10"></textarea>
+    <p>Why would anyone want to do this? What used to be called a mail merge. This is where you take a set of data and 
+        create a new set of documents from the data. You can do this with Word or even tools like Canva. One slide per row.
+        This vastly simplifies making consistent slides.
+    </p>
+</div>
