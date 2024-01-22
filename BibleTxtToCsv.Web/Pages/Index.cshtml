@@ -8,19 +8,30 @@
     p {
         margin-bottom: 0px;
     }
-    h4{
-        margin-top:1rem;
+
+    h4 {
+        margin-top: 1rem;
         margin-bottom: 0px;
     }
-    textarea.form-control{
-        border-color:black;
+
+    textarea.form-control {
+        border-color: black;
+    }
+
+    .btn{
+        margin-top:5px; 
+        margin-bottom: 5px;
     }
 </style>
 
 <div class="text-center">
     <h1 class="display-4">Welcome to the Bible CSV Formatter</h1>
-    <p>Paste your text into the box box and click the button to convert it to CSV</p>
-    <p>Text can be easily taken from here: 
+    <p>
+        Paste your text into the box box and click the button to convert it to CSV.
+        Multiple chapters can be converted at the same time.
+    </p>
+    <p>
+        Text can be easily taken from here:
         <a target="_blank" href="https://www.biblestudytools.com/james/1.html">https://www.biblestudytools.com/james/1.html</a>
     </p>
     <hr />
@@ -35,11 +46,40 @@
     <p>2 Consider it pure joy, my brothers and sisters, whenever you face trials of many kinds,</p>
     <form method="post">
         <textarea asp-for="Text" class="form-control" rows="10"></textarea>
-        <input type="submit" value="Format as CSV" class="btn btn-primary" style="margin-top:5px; margin-bottom: 5px;"/>
+        <input type="submit" value="Format as CSV" class="btn btn-primary" />
     </form>
-    <textarea asp-for="Csv" class="form-control" rows="10"></textarea>
-    <p>Why would anyone want to do this? What used to be called a mail merge. This is where you take a set of data and 
+    <textarea asp-for="Csv" class="form-control" rows="10" id="csv"></textarea>
+    
+    <button onclick=saveTextAsFile(csv.value,'Bible.csv') class="btn btn-primary">Download</button>
+
+    <p>
+        Why would anyone want to do this? What used to be called a mail merge. This is where you take a set of data and
         create a new set of documents from the data. You can do this with Word or even tools like Canva. One slide per row.
         This vastly simplifies making consistent slides.
     </p>
 </div>
+
+<script>
+    function saveTextAsFile(textToWrite, fileNameToSaveAs) {
+        var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null) {
+            // Chrome allows the link to be clicked
+            // without actually adding it to the DOM.
+            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            downloadLink.click();
+        }
+        else {
+            // Firefox requires the link to be added to the DOM
+            // before it can be clicked.
+            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.onclick = destroyClickedElement;
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+    }
+</script>

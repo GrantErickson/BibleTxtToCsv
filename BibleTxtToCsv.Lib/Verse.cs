@@ -23,7 +23,7 @@ namespace BibleTxtToCsv.Lib
 
         public string FormatCsv()
         {
-            return $@"""{Book}"",{Chapter},{VerseNumber},""{Text}""";
+            return $@"""{Book}"",{Chapter},{VerseNumber},""{Text.Replace("\"","\"\"")}""";
         }
     }
 }
