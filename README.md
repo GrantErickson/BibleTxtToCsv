@@ -1,6 +1,8 @@
 ## Summary 
 This helped a friend import Bible chapters from a text file and output a csv. The goal was to use it in Canva via a 'mail merge' feature to get consistent slides. 
 
+Check out the website here: https://bibletexttocsv.azurewebsites.net/
+
 ## Import format 
 [Book] [Chapter]
 
