@@ -61,7 +61,7 @@
 
 <script>
     function saveTextAsFile(textToWrite, fileNameToSaveAs) {
-        var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+        var textFileAsBlob = new Blob([textToWrite], { type: 'text/csv;charset=utf8' });
         var downloadLink = document.createElement("a");
         downloadLink.download = fileNameToSaveAs;
         downloadLink.innerHTML = "Download File";
