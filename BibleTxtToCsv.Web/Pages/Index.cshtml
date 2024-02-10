@@ -18,8 +18,8 @@
         border-color: black;
     }
 
-    .btn{
-        margin-top:5px; 
+    .btn {
+        margin-top: 5px;
         margin-bottom: 5px;
     }
 </style>
@@ -49,8 +49,9 @@
         <input type="submit" value="Format as CSV" class="btn btn-primary" />
     </form>
     <textarea asp-for="Csv" class="form-control" rows="10" id="csv"></textarea>
-    
-    <button onclick=saveTextAsFile(csv.value,'Bible.csv') class="btn btn-primary">Download</button>
+
+    <button onclick=saveTextAsFile(csv.value,'Bible.csv') class="btn btn-primary">Download CSV</button>
+    <button onclick=downloadXlsx(csv.value,'Bible.xlsx') class="btn btn-secondary">Download XLSX</button>
 
     <p>
         Why would anyone want to do this? What used to be called a mail merge. This is where you take a set of data and
@@ -59,27 +60,54 @@
     </p>
 </div>
 
+
+<script src="https://cdn.cloudmersive.com/jsclient/cloudmersive-document-convert-client.js"></script>
 <script>
-    function saveTextAsFile(textToWrite, fileNameToSaveAs) {
-        var textFileAsBlob = new Blob([textToWrite], { type: 'text/csv;charset=utf8' });
+
+    function saveTextAsFile(textToWrite, filenameToSaveAs) {
+        saveDataAsFile(new Blob([textToWrite], { type: 'text/csv;charset=utf8' }), filenameToSaveAs,)
+    }
+
+    function saveDataAsFile(blob, filenameToSaveAs, mimeFormat) {
         var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
+        downloadLink.download = filenameToSaveAs;
         downloadLink.innerHTML = "Download File";
         if (window.webkitURL != null) {
             // Chrome allows the link to be clicked
             // without actually adding it to the DOM.
-            downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            downloadLink.href = window.webkitURL.createObjectURL(blob);
             downloadLink.click();
         }
         else {
             // Firefox requires the link to be added to the DOM
             // before it can be clicked.
-            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+            downloadLink.href = window.URL.createObjectURL(blob);
             downloadLink.onclick = destroyClickedElement;
             downloadLink.style.display = "none";
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
         }
+    }
+
+    function downloadXlsx(textToWrite, filenameToSaveAs) {
+        var defaultClient = cloudmersiveConvertApiClient.ApiClient.instance;
+
+        // Configure API key authorization: Apikey
+        var Apikey = defaultClient.authentications['Apikey'];
+        // Yes, this is lame. :)
+        let stuff = "MDRkMTIwZWQtNTdkNy00ZWE1LTgyMzctMjg2YzI3ODQ4ZDUw"
+        Apikey.apiKey = atob(stuff)
+
+        var api = new cloudmersiveConvertApiClient.ConvertDocumentApi()
+
+        api.convertDocumentCsvToXlsx(textToWrite, function (error, data, response) {
+            if (error) {
+                alert("Could not convert the xlsx file.")
+            } else {
+                //'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                saveDataAsFile(response.body, filenameToSaveAs)
+            }
+        });
     }
 </script>

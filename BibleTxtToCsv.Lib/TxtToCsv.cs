@@ -12,6 +12,8 @@ namespace BibleTxtToCsv.Lib
         {
             txt = txt.Replace("�", " ");
             txt = txt.Replace("\u00A0", " ");
+            txt = txt.Replace("“", "\"");
+            txt = txt.Replace("”", "\"");
             var verses = new List<Verse>();
             string book = "Unknown";
             int chapter = 0;
