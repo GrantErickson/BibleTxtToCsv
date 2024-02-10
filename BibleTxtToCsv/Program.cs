@@ -64,7 +64,7 @@ foreach (var line in lines)
 var filenameParts = txtFilename.Split(".");
 var csvFilename = string.Join(',', filenameParts.Take(filenameParts.Length - 1)) + ".csv";
 
-File.WriteAllText(csvFilename, "Book,Chapter,Verse,Text" + Environment.NewLine);
+File.WriteAllText(csvFilename, "Book,Chapter,Verse,Reference,Text" + Environment.NewLine);
 File.AppendAllLines(csvFilename, verses.Select(f => f.FormatCsv()));
 
 Console.WriteLine($"Wrote {verses.Count} verses to {csvFilename}.");

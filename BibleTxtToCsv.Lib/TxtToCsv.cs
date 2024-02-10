@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BibleTxtToCsv.Lib
 {
@@ -18,8 +20,9 @@ namespace BibleTxtToCsv.Lib
             string book = "Unknown";
             int chapter = 0;
             var lines = txt.Split(Environment.NewLine);
-            foreach (var line in lines)
+            foreach (var lineRaw in lines)
             {
+                var line = Regex.Replace(lineRaw, " {2,}", " ").Trim();
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 // See if the line starts with a number
                 var spaceIndex = line.IndexOf(" ");
@@ -36,7 +39,7 @@ namespace BibleTxtToCsv.Lib
                         // This is a book and chapter number.
                         var parts = line.Split(" ");
                         // Make sure the last part is a number
-                        if (int.TryParse(parts[parts.Length - 1], out var tempChapter))
+                        if (int.TryParse(parts[parts.Length - 1].Trim(), out var tempChapter))
                         {
                             if (tempChapter > 0)
                             {
